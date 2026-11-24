@@ -1,266 +1,428 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ECOGUARD · Ananta</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <title>ECOGUARD — Building Control Sign In</title>
   <style>
     :root {
-      --bg: #F6F4EE;
-      --paper: #FCFBF7;
-      --ink: #0F2A20;
-      --muted: #4A5D55;
-      --line: rgba(15, 42, 32, 0.16);
-      --forest: #0F2A20;
-      --forest-2: #194233;
-      --amber: #C87D20;
-      --amber-soft: rgba(200, 125, 32, 0.14);
-      --danger: #B42318;
-      --danger-soft: rgba(180, 35, 24, 0.1);
+      --bg-cream: #f5f4ef;
+      --grid-line: rgba(20, 61, 43, 0.055);
+      --card-bg: #ffffff;
+      --border: #dcdad0;
+      --forest: #143d2b;
+      --forest-mid: #1f5c41;
+      --forest-dark: #0d291d;
+      --sage-pill: #e6efe9;
+      --amber: #d97706;
+      --amber-glow: rgba(217, 119, 6, 0.25);
+      --text-main: #1a211d;
+      --text-muted: #626c66;
+      --danger: #b91c1c;
     }
 
     * {
       box-sizing: border-box;
+      font-family: "Segoe UI", system-ui, -apple-system, sans-serif;
     }
 
     body {
       margin: 0;
       min-height: 100vh;
-      font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
-      color: var(--ink);
-      background-color: var(--bg);
+      background-color: var(--bg-cream);
+      /* Subtle architectural blueprint grid matching the ECOGUARD dashboard */
       background-image:
-        linear-gradient(to right, rgba(15, 42, 32, 0.045) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(15, 42, 32, 0.045) 1px, transparent 1px);
+        linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
       background-size: 28px 28px;
-      display: grid;
-      place-items: center;
-      padding: 24px 16px;
-    }
-
-    .card {
-      width: 100%;
-      max-width: 440px;
-      background: var(--paper);
-      border: 1px solid var(--line);
-      border-top: 4px solid var(--forest);
-      border-radius: 14px;
-      padding: 28px 26px 26px;
-      box-shadow: 0 14px 36px rgba(15, 42, 32, 0.08);
-    }
-
-    .badge-row {
+      color: var(--text-main);
       display: flex;
+      flex-direction: column;
       align-items: center;
-      justify-content: space-between;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    /* Top Status Bar matching original dashboard header */
+    .top-status-pill {
+      display: inline-flex;
+      align-items: center;
       gap: 8px;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 11px;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 18px;
-    }
-
-    .badge-row span:last-child {
-      color: var(--amber);
+      background: #ffffff;
+      border: 1px solid var(--border);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
       font-weight: 600;
+      color: var(--text-main);
+      margin-bottom: 16px;
+      box-shadow: 0 2px 8px rgba(20, 61, 43, 0.05);
     }
 
-    .brand-hero {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 12px;
+    .live-dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: #16a34a;
+      box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.5);
+      animation: livePulse 2s infinite;
     }
 
-    .icon-box {
-      width: 52px;
-      height: 52px;
-      border-radius: 12px;
-      background: var(--forest);
-      color: #F6F4EE;
-      display: grid;
-      place-items: center;
-      flex-shrink: 0;
-      animation: pulseGlow 3.2s ease-in-out infinite;
+    .status-divider {
+      color: #cbd5e1;
     }
 
-    @keyframes pulseGlow {
-      0%, 100% { box-shadow: 0 0 0 0 rgba(200, 125, 32, 0); }
-      50% { box-shadow: 0 0 0 6px var(--amber-soft); }
+    .status-tag {
+      background: var(--sage-pill);
+      color: var(--forest);
+      padding: 2px 8px;
+      border-radius: 999px;
+      font-size: 11px;
+      font-weight: 700;
     }
 
+    /* Main Login Card */
+    .login-card {
+      width: 100%;
+      max-width: 420px;
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 14px 34px rgba(20, 61, 43, 0.09);
+    }
+
+    /* Dark Forest Blueprint Header Banner inside Card */
+    .card-banner {
+      background-color: var(--forest);
+      background-image:
+        linear-gradient(to right, rgba(255, 255, 255, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+      background-size: 18px 18px;
+      padding: 26px 24px 22px;
+      text-align: center;
+      position: relative;
+      border-bottom: 3px solid var(--amber);
+    }
+
+    /* Creative Plant + Socket SVG Illustration */
+    .eco-scene {
+      width: 132px;
+      height: 76px;
+      margin: 0 auto 8px;
+      display: block;
+    }
+
+    /* Plant gentle sway animation */
+    .plant-stem {
+      transform-origin: 42px 58px;
+      animation: gentleSway 3.6s ease-in-out infinite;
+    }
+
+    .leaf-left {
+      transform-origin: 42px 38px;
+      animation: leafBreathe 3.2s ease-in-out infinite;
+    }
+
+    .leaf-right {
+      transform-origin: 42px 32px;
+      animation: leafBreathe 3.2s ease-in-out 0.6s infinite;
+    }
+
+    /* Energy pulse traveling along cord from socket to plant */
+    .energy-pulse {
+      stroke-dasharray: 8 36;
+      animation: flowCurrent 2.2s linear infinite;
+    }
+
+    .socket-led {
+      animation: ledBlink 2.2s ease-in-out infinite;
+    }
+
+    /* Uppercase ECOGUARD Animated Wordmark */
     .brand-title {
       margin: 0;
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 30px;
-      font-weight: 700;
+      font-size: 2.15rem;
+      font-weight: 800;
       letter-spacing: 0.14em;
       text-transform: uppercase;
-      line-height: 1.05;
-      animation: fadeSlideUp 0.65s ease both;
+      display: inline-flex;
+      justify-content: center;
+      line-height: 1.15;
     }
 
-    @keyframes fadeSlideUp {
-      from { opacity: 0; transform: translateY(6px); }
-      to { opacity: 1; transform: translateY(0); }
+    .brand-title span {
+      display: inline-block;
+      background: linear-gradient(110deg, #ffffff 15%, #a7f3d0 45%, #fbbf24 65%, #ffffff 90%);
+      background-size: 240% auto;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      opacity: 0;
+      transform: translateY(12px) scale(0.92);
+      animation:
+        charDrop 0.55s cubic-bezier(0.22, 1, 0.36, 1) forwards,
+        goldSweep 4.5s ease-in-out 0.8s infinite;
+      animation-delay: calc(var(--i) * 0.06s), calc(0.8s + var(--i) * 0.05s);
     }
 
-    .tagline {
-      margin: 0 0 22px;
-      font-family: "JetBrains Mono", monospace;
-      font-size: 12px;
-      letter-spacing: 0.1em;
-      color: var(--muted);
+    .brand-pillars {
+      margin: 6px 0 0;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: #9ec3b0;
     }
 
-    .field {
+    /* Form Section */
+    .card-body {
+      padding: 26px 28px 28px;
+    }
+
+    .form-intro {
+      margin: 0 0 18px;
+      font-size: 0.88rem;
+      color: var(--text-muted);
+      text-align: center;
+    }
+
+    .form-group {
       margin-bottom: 15px;
     }
 
     label {
       display: block;
-      font-size: 13px;
-      font-weight: 600;
+      font-size: 0.78rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--forest);
       margin-bottom: 6px;
-      color: var(--ink);
     }
 
     input {
       width: 100%;
       padding: 11px 13px;
-      font-family: inherit;
-      font-size: 15px;
-      color: var(--ink);
-      background: #FFFFFF;
-      border: 1px solid var(--line);
       border-radius: 9px;
-      outline: none;
-      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+      border: 1px solid var(--border);
+      background: #faf9f5;
+      color: var(--text-main);
+      font-size: 0.95rem;
+      transition: border-color 0.2s, box-shadow 0.2s, background 0.2s;
     }
 
     input:focus {
+      outline: none;
       border-color: var(--forest);
-      box-shadow: 0 0 0 3px rgba(15, 42, 32, 0.12);
+      background: #ffffff;
+      box-shadow: 0 0 0 3px rgba(20, 61, 43, 0.12);
     }
 
-    .btn-submit {
+    .login-btn {
       width: 100%;
-      margin-top: 6px;
-      padding: 12px 16px;
-      border: 0;
+      padding: 12px;
+      border: none;
       border-radius: 9px;
       background: var(--forest);
-      color: #F6F4EE;
-      font-family: "Space Grotesk", sans-serif;
-      font-size: 15px;
-      font-weight: 600;
+      color: #ffffff;
+      font-size: 0.95rem;
+      font-weight: 700;
       letter-spacing: 0.03em;
       cursor: pointer;
-      transition: background 0.15s ease, transform 0.08s ease;
+      margin-top: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: background 0.2s, transform 0.12s;
     }
 
-    .btn-submit:hover {
-      background: var(--forest-2);
+    .login-btn:hover {
+      background: var(--forest-dark);
     }
 
-    .btn-submit:active {
+    .login-btn:active {
       transform: scale(0.99);
     }
 
     .error-msg {
       display: none;
       margin-top: 12px;
-      padding: 10px 12px;
+      padding: 9px 12px;
       border-radius: 8px;
-      background: var(--danger-soft);
+      background: #fef2f2;
+      border: 1px solid #fecaca;
       color: var(--danger);
-      font-size: 13.5px;
-      font-weight: 500;
+      font-size: 0.84rem;
+      text-align: center;
+      font-weight: 600;
     }
 
-    .error-msg.show {
-      display: block;
+    /* Keyframes */
+    @keyframes charDrop {
+      to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
     }
 
-    .footer-note {
-      margin-top: 18px;
-      padding-top: 14px;
-      border-top: 1px solid var(--line);
-      font-size: 12px;
-      color: var(--muted);
-      display: flex;
-      justify-content: space-between;
-      gap: 8px;
+    @keyframes goldSweep {
+      0%, 100% { background-position: 0% center; }
+      50% { background-position: 100% center; }
+    }
+
+    @keyframes gentleSway {
+      0%, 100% { transform: rotate(-2.5deg); }
+      50% { transform: rotate(2.5deg); }
+    }
+
+    @keyframes leafBreathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+
+    @keyframes flowCurrent {
+      from { stroke-dashoffset: 44; }
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes ledBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+
+    @keyframes livePulse {
+      0% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0.5); }
+      70% { box-shadow: 0 0 0 7px rgba(22, 163, 74, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(22, 163, 74, 0); }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .brand-title span, .plant-stem, .leaf-left, .leaf-right, .energy-pulse, .socket-led, .live-dot {
+        animation: none;
+        opacity: 1;
+        transform: none;
+      }
+      .brand-title span {
+        color: #ffffff;
+        background: none;
+      }
     }
   </style>
 </head>
 <body>
-  <main class="card">
-    <div class="badge-row">
-      <span>Ananta · Team 11</span>
-      <span>Smart Grid Access</span>
+
+  <!-- Top Building Badge matching dashboard -->
+  <div class="top-status-pill">
+    <span class="live-dot"></span>
+    <span>Academic Block A</span>
+    <span class="status-divider">|</span>
+    <span class="status-tag">Smart Grid Online</span>
+  </div>
+
+  <main class="login-card">
+    <!-- Forest Blueprint Header with Plant + Socket Art -->
+    <div class="card-banner">
+      <svg class="eco-scene" viewBox="0 0 140 80" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Smart Wall Socket (Right Side) -->
+        <rect x="86" y="20" width="34" height="38" rx="6" fill="#0d291d" stroke="#4d8b6f" stroke-width="1.8"/>
+        <!-- Socket Holes -->
+        <circle cx="103" cy="31" r="2.2" fill="#fbbf24"/>
+        <circle cx="96" cy="42" r="2.2" fill="#a7f3d0"/>
+        <circle cx="110" cy="42" r="2.2" fill="#a7f3d0"/>
+        <!-- Green Status LED on Socket -->
+        <circle class="socket-led" cx="103" cy="51" r="2" fill="#22c55e"/>
+
+        <!-- Connecting Eco-Cord from Socket to Planter Pot -->
+        <path d="M86 42 C74 42, 74 58, 56 58" stroke="#4d8b6f" stroke-width="2.4" stroke-linecap="round"/>
+        <!-- Glowing Amber Energy Pulse moving along cord -->
+        <path class="energy-pulse" d="M86 42 C74 42, 74 58, 56 58" stroke="#fbbf24" stroke-width="2.4" stroke-linecap="round"/>
+
+        <!-- Planter Pot (Left Side) -->
+        <path d="M28 52 H56 L52 68 C51.6 69.5 50.3 70.5 48.8 70.5 H35.2 C33.7 70.5 32.4 69.5 32 68 L28 52 Z" fill="#d97706"/>
+        <rect x="26" y="49" width="32" height="4.5" rx="2" fill="#fbbf24"/>
+
+        <!-- Growing Plant Sprout -->
+        <g class="plant-stem">
+          <path d="M42 49 C42 39, 42 31, 42 22" stroke="#6ee7b7" stroke-width="2.4" stroke-linecap="round"/>
+          <!-- Left Leaf -->
+          <path class="leaf-left" d="M42 38 C31 38, 25 30, 27 23 C34 23, 41 29, 42 38 Z" fill="#34d399"/>
+          <!-- Right Leaf -->
+          <path class="leaf-right" d="M42 32 C53 32, 59 24, 57 17 C50 17, 43 23, 42 32 Z" fill="#a7f3d0"/>
+          <!-- Top Bud Spark -->
+          <circle cx="42" cy="19" r="2.5" fill="#fbbf24"/>
+        </g>
+      </svg>
+
+      <!-- Uppercase ECOGUARD Animated Title -->
+      <h1 class="brand-title" aria-label="ECOGUARD">
+        <span style="--i:0">E</span>
+        <span style="--i:1">C</span>
+        <span style="--i:2">O</span>
+        <span style="--i:3">G</span>
+        <span style="--i:4">U</span>
+        <span style="--i:5">A</span>
+        <span style="--i:6">R</span>
+        <span style="--i:7">D</span>
+      </h1>
+      <p class="brand-pillars">POWER &middot; WATER &middot; WALLS</p>
     </div>
 
-    <div class="brand-hero">
-      <div class="icon-box" aria-hidden="true">
-        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
-          <rect x="4" y="6" width="12" height="16" rx="2.5" />
-          <line x1="8" y1="3" x2="8" y2="6" />
-          <line x1="12" y1="3" x2="12" y2="6" />
-          <path d="M18 19c4.5 0 6.5-3.2 6.5-7.5-4.2 0-6.5 2.5-6.5 7.5z" stroke="#E5A94C" />
-        </svg>
-      </div>
-      <h1 class="brand-title">ECOGUARD</h1>
-    </div>
+    <!-- Clean Login Form -->
+    <div class="card-body">
+      <p class="form-intro">Enter your credentials to access building controls</p>
 
-    <p class="tagline">POWER · WATER · WALLS</p>
+      <form id="loginForm" onsubmit="handleLogin(event)">
+        <div class="form-group">
+          <label for="username">Username</label>
+          <input type="text" id="username" placeholder="Enter username" autocomplete="username" required />
+        </div>
 
-    <form id="loginForm" autocomplete="off">
-      <div class="field">
-        <label for="username">Username</label>
-        <input id="username" name="username" type="text" placeholder="Enter username" required />
-      </div>
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password" id="password" placeholder="Enter password" autocomplete="current-password" required />
+        </div>
 
-      <div class="field">
-        <label for="password">Passcode</label>
-        <input id="password" name="password" type="password" placeholder="Enter passcode" required />
-      </div>
+        <button type="submit" class="login-btn">
+          <span>Sign In to Dashboard</span>
+          <span aria-hidden="true">&rarr;</span>
+        </button>
 
-      <button type="submit" class="btn-submit">Sign In to Console</button>
-      <div id="errorMsg" class="error-msg" role="alert">Invalid username or passcode.</div>
-    </form>
-
-    <div class="footer-note">
-      <span>Role-based session access</span>
-      <span>v1.0</span>
+        <div id="errorMsg" class="error-msg">Invalid username or password.</div>
+      </form>
     </div>
   </main>
 
   <script>
-    const form = document.getElementById("loginForm");
+    const usernameInput = document.getElementById("username");
+    const passwordInput = document.getElementById("password");
     const errorMsg = document.getElementById("errorMsg");
 
-    form.addEventListener("submit", function (event) {
+    function clearError() {
+      errorMsg.style.display = "none";
+    }
+
+    usernameInput.addEventListener("input", clearError);
+    passwordInput.addEventListener("input", clearError);
+
+    function handleLogin(event) {
       event.preventDefault();
-      const user = document.getElementById("username").value.trim().toLowerCase();
-      const pass = document.getElementById("password").value.trim();
+
+      const user = usernameInput.value.trim().toLowerCase();
+      const pass = passwordInput.value.trim();
 
       if (user === "admin" && pass === "1234") {
-        sessionStorage.setItem("ecoguard_role", "admin");
-        errorMsg.classList.remove("show");
+        sessionStorage.setItem("role", "admin");
         window.location.href = "dashboard.html";
       } else if (user === "employee" && pass === "1234") {
-        sessionStorage.setItem("ecoguard_role", "employee");
-        errorMsg.classList.remove("show");
+        sessionStorage.setItem("role", "employee");
         window.location.href = "employee-dashboard.html";
       } else {
-        errorMsg.classList.add("show");
+        errorMsg.style.display = "block";
       }
-    });
+    }
   </script>
+
 </body>
 </html>
