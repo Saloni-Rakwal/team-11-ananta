@@ -296,7 +296,7 @@
   </main>
 
   <script>
-    const role = sessionStorage.getItem("ecoguard_role");
+    const role = sessionStorage.getItem("role");
     if (!role) {
       window.location.href = "index.html";
     }
@@ -379,7 +379,7 @@
     document.getElementById("floorFilter").addEventListener("change", render);
 
     document.getElementById("logoutBtn").addEventListener("click", () => {
-      sessionStorage.removeItem("ecoguard_role");
+      sessionStorage.removeItem("role");
       window.location.href = "index.html";
     });
 
