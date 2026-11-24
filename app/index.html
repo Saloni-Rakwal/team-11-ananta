@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ECOGUARD · Ananta</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F6F4EE;
+      --paper: #FCFBF7;
+      --ink: #0F2A20;
+      --muted: #4A5D55;
+      --line: rgba(15, 42, 32, 0.16);
+      --forest: #0F2A20;
+      --forest-2: #194233;
+      --amber: #C87D20;
+      --amber-soft: rgba(200, 125, 32, 0.14);
+      --danger: #B42318;
+      --danger-soft: rgba(180, 35, 24, 0.1);
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+      color: var(--ink);
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(to right, rgba(15, 42, 32, 0.045) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 42, 32, 0.045) 1px, transparent 1px);
+      background-size: 28px 28px;
+      display: grid;
+      place-items: center;
+      padding: 24px 16px;
+    }
+
+    .card {
+      width: 100%;
+      max-width: 440px;
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-top: 4px solid var(--forest);
+      border-radius: 14px;
+      padding: 28px 26px 26px;
+      box-shadow: 0 14px 36px rgba(15, 42, 32, 0.08);
+    }
+
+    .badge-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 18px;
+    }
+
+    .badge-row span:last-child {
+      color: var(--amber);
+      font-weight: 600;
+    }
+
+    .brand-hero {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 12px;
+    }
+
+    .icon-box {
+      width: 52px;
+      height: 52px;
+      border-radius: 12px;
+      background: var(--forest);
+      color: #F6F4EE;
+      display: grid;
+      place-items: center;
+      flex-shrink: 0;
+      animation: pulseGlow 3.2s ease-in-out infinite;
+    }
+
+    @keyframes pulseGlow {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(200, 125, 32, 0); }
+      50% { box-shadow: 0 0 0 6px var(--amber-soft); }
+    }
+
+    .brand-title {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 30px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      line-height: 1.05;
+      animation: fadeSlideUp 0.65s ease both;
+    }
+
+    @keyframes fadeSlideUp {
+      from { opacity: 0; transform: translateY(6px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .tagline {
+      margin: 0 0 22px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 12px;
+      letter-spacing: 0.1em;
+      color: var(--muted);
+    }
+
+    .field {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--ink);
+    }
+
+    input {
+      width: 100%;
+      padding: 11px 13px;
+      font-family: inherit;
+      font-size: 15px;
+      color: var(--ink);
+      background: #FFFFFF;
+      border: 1px solid var(--line);
+      border-radius: 9px;
+      outline: none;
+      transition: border-color 0.15s ease, box-shadow 0.15s ease;
+    }
+
+    input:focus {
+      border-color: var(--forest);
+      box-shadow: 0 0 0 3px rgba(15, 42, 32, 0.12);
+    }
+
+    .btn-submit {
+      width: 100%;
+      margin-top: 6px;
+      padding: 12px 16px;
+      border: 0;
+      border-radius: 9px;
+      background: var(--forest);
+      color: #F6F4EE;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      cursor: pointer;
+      transition: background 0.15s ease, transform 0.08s ease;
+    }
+
+    .btn-submit:hover {
+      background: var(--forest-2);
+    }
+
+    .btn-submit:active {
+      transform: scale(0.99);
+    }
+
+    .error-msg {
+      display: none;
+      margin-top: 12px;
+      padding: 10px 12px;
+      border-radius: 8px;
+      background: var(--danger-soft);
+      color: var(--danger);
+      font-size: 13.5px;
+      font-weight: 500;
+    }
+
+    .error-msg.show {
+      display: block;
+    }
+
+    .footer-note {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px solid var(--line);
+      font-size: 12px;
+      color: var(--muted);
+      display: flex;
+      justify-content: space-between;
+      gap: 8px;
+    }
+  </style>
+</head>
+<body>
+  <main class="card">
+    <div class="badge-row">
+      <span>Ananta · Team 11</span>
+      <span>Smart Grid Access</span>
+    </div>
+
+    <div class="brand-hero">
+      <div class="icon-box" aria-hidden="true">
+        <svg width="28" height="28" viewBox="0 0 28 28" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="4" y="6" width="12" height="16" rx="2.5" />
+          <line x1="8" y1="3" x2="8" y2="6" />
+          <line x1="12" y1="3" x2="12" y2="6" />
+          <path d="M18 19c4.5 0 6.5-3.2 6.5-7.5-4.2 0-6.5 2.5-6.5 7.5z" stroke="#E5A94C" />
+        </svg>
+      </div>
+      <h1 class="brand-title">ECOGUARD</h1>
+    </div>
+
+    <p class="tagline">POWER · WATER · WALLS</p>
+
+    <form id="loginForm" autocomplete="off">
+      <div class="field">
+        <label for="username">Username</label>
+        <input id="username" name="username" type="text" placeholder="Enter username" required />
+      </div>
+
+      <div class="field">
+        <label for="password">Passcode</label>
+        <input id="password" name="password" type="password" placeholder="Enter passcode" required />
+      </div>
+
+      <button type="submit" class="btn-submit">Sign In to Console</button>
+      <div id="errorMsg" class="error-msg" role="alert">Invalid username or passcode.</div>
+    </form>
+
+    <div class="footer-note">
+      <span>Role-based session access</span>
+      <span>v1.0</span>
+    </div>
+  </main>
+
+  <script>
+    const form = document.getElementById("loginForm");
+    const errorMsg = document.getElementById("errorMsg");
+
+    form.addEventListener("submit", function (event) {
+      event.preventDefault();
+      const user = document.getElementById("username").value.trim().toLowerCase();
+      const pass = document.getElementById("password").value.trim();
+
+      if (user === "admin" && pass === "1234") {
+        sessionStorage.setItem("ecoguard_role", "admin");
+        errorMsg.classList.remove("show");
+        window.location.href = "dashboard.html";
+      } else if (user === "employee" && pass === "1234") {
+        sessionStorage.setItem("ecoguard_role", "employee");
+        errorMsg.classList.remove("show");
+        window.location.href = "employee-dashboard.html";
+      } else {
+        errorMsg.classList.add("show");
+      }
+    });
+  </script>
+</body>
+</html>
