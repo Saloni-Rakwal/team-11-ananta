@@ -1,0 +1,389 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ECOGUARD · Employee Controls</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@400;500;600&family=JetBrains+Mono:wght@400;500;600&family=Space+Grotesk:wght@600;700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --bg: #F6F4EE;
+      --paper: #FCFBF7;
+      --ink: #0F2A20;
+      --muted: #4A5D55;
+      --line: rgba(15, 42, 32, 0.15);
+      --forest: #0F2A20;
+      --forest-2: #194233;
+      --amber: #C87D20;
+      --amber-soft: rgba(200, 125, 32, 0.14);
+      --ok-bg: rgba(25, 115, 65, 0.12);
+      --ok-ink: #166534;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "IBM Plex Sans", system-ui, -apple-system, sans-serif;
+      color: var(--ink);
+      background-color: var(--bg);
+      background-image:
+        linear-gradient(to right, rgba(15, 42, 32, 0.04) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(15, 42, 32, 0.04) 1px, transparent 1px);
+      background-size: 28px 28px;
+      padding-bottom: 40px;
+    }
+
+    .topbar {
+      background: var(--forest);
+      color: #F6F4EE;
+      padding: 14px 20px;
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      border-bottom: 3px solid var(--amber);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .brand-name {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 19px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+    }
+
+    .brand-sub {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      color: #D8E2DC;
+      letter-spacing: 0.06em;
+    }
+
+    .top-actions {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .role-pill {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.12);
+      color: #F6F4EE;
+    }
+
+    .btn-logout {
+      padding: 7px 12px;
+      border-radius: 8px;
+      border: 1px solid rgba(255, 255, 255, 0.28);
+      background: transparent;
+      color: #F6F4EE;
+      font-family: inherit;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+    }
+
+    .btn-logout:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .container {
+      max-width: 920px;
+      margin: 24px auto 0;
+      padding: 0 16px;
+    }
+
+    .toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 18px;
+    }
+
+    .toolbar h1 {
+      margin: 0;
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 22px;
+    }
+
+    .toolbar p {
+      margin: 3px 0 0;
+      font-size: 13.5px;
+      color: var(--muted);
+    }
+
+    select {
+      padding: 9px 12px;
+      border-radius: 9px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--ink);
+      font-family: inherit;
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .zone-card {
+      background: var(--paper);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 18px;
+      box-shadow: 0 8px 22px rgba(15, 42, 32, 0.05);
+    }
+
+    .zone-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 14px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .zone-title {
+      font-family: "Space Grotesk", sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      margin: 0;
+    }
+
+    .zone-code {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 11px;
+      color: var(--muted);
+    }
+
+    .device-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 0;
+      border-bottom: 1px dashed rgba(15, 42, 32, 0.12);
+    }
+
+    .device-row:last-of-type {
+      border-bottom: 0;
+    }
+
+    .device-label {
+      font-size: 14.5px;
+      font-weight: 500;
+    }
+
+    .switch-btn {
+      min-width: 66px;
+      padding: 6px 12px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      font-family: "JetBrains Mono", monospace;
+      font-size: 12px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .switch-btn.on {
+      background: var(--ok-bg);
+      color: var(--ok-ink);
+      border-color: rgba(22, 101, 52, 0.28);
+    }
+
+    .switch-btn.off {
+      background: #EFECE4;
+      color: var(--muted);
+    }
+
+    .ac-temp-box {
+      margin-top: 10px;
+      padding: 10px 12px;
+      border-radius: 9px;
+      background: var(--bg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .ac-temp-label {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .temp-controls {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .temp-btn {
+      width: 30px;
+      height: 30px;
+      border-radius: 7px;
+      border: 1px solid var(--line);
+      background: var(--paper);
+      color: var(--ink);
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .temp-val {
+      font-family: "JetBrains Mono", monospace;
+      font-size: 14px;
+      font-weight: 600;
+      min-width: 44px;
+      text-align: center;
+    }
+
+    .tip {
+      margin-top: 10px;
+      font-size: 12px;
+      color: var(--amber);
+      font-weight: 500;
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="brand">
+      <div>
+        <div class="brand-name">ECOGUARD</div>
+        <div class="brand-sub">POWER · WATER · WALLS · EMPLOYEE CONSOLE</div>
+      </div>
+    </div>
+    <div class="top-actions">
+      <span id="roleBadge" class="role-pill">Employee View</span>
+      <button id="logoutBtn" class="btn-logout" type="button">Sign Out</button>
+    </div>
+  </header>
+
+  <main class="container">
+    <div class="toolbar">
+      <div>
+        <h1>Room Comfort &amp; Lighting</h1>
+        <p>Switch lights, fans, and AC units or adjust room setpoints (recommended AC: 24 °C).</p>
+      </div>
+      <select id="floorFilter" aria-label="Filter by floor">
+        <option value="ALL">All Floors</option>
+        <option value="F0">Ground Floor (F0)</option>
+        <option value="F1">First Floor (F1)</option>
+      </select>
+    </div>
+
+    <div id="zonesGrid" class="grid"></div>
+  </main>
+
+  <script>
+    const role = sessionStorage.getItem("ecoguard_role");
+    if (!role) {
+      window.location.href = "index.html";
+    }
+    document.getElementById("roleBadge").textContent =
+      role === "admin" ? "Admin Preview · Employee View" : "Employee · Lights, Fans & AC";
+
+    const state = [
+      { id: "r1", floor: "F0", code: "F0 · RM-101", name: "Lecture Hall A", lights: true, fans: true, ac: true, temp: 24 },
+      { id: "r2", floor: "F0", code: "F0 · RM-102", name: "Faculty Lounge", lights: true, fans: false, ac: true, temp: 22 },
+      { id: "r3", floor: "F1", code: "F1 · RM-201", name: "Seminar Room 1", lights: false, fans: true, ac: false, temp: 24 },
+      { id: "r4", floor: "F1", code: "F1 · LAB-204", name: "Computing Lab", lights: true, fans: true, ac: true, temp: 23 }
+    ];
+
+    function render() {
+      const selectedFloor = document.getElementById("floorFilter").value;
+      const grid = document.getElementById("zonesGrid");
+      const visibleRooms = state.filter((z) => selectedFloor === "ALL" || z.floor === selectedFloor);
+
+      grid.innerHTML = visibleRooms
+        .map(
+          (room) => `
+          <section class="zone-card" data-id="${room.id}">
+            <div class="zone-header">
+              <h2 class="zone-title">${room.name}</h2>
+              <span class="zone-code">${room.code}</span>
+            </div>
+
+            <div class="device-row">
+              <span class="device-label">Lights</span>
+              <button type="button" class="switch-btn ${room.lights ? "on" : "off"}" data-action="lights">
+                ${room.lights ? "ON" : "OFF"}
+              </button>
+            </div>
+
+            <div class="device-row">
+              <span class="device-label">Fans</span>
+              <button type="button" class="switch-btn ${room.fans ? "on" : "off"}" data-action="fans">
+                ${room.fans ? "ON" : "OFF"}
+              </button>
+            </div>
+
+            <div class="device-row">
+              <span class="device-label">Air Conditioner</span>
+              <button type="button" class="switch-btn ${room.ac ? "on" : "off"}" data-action="ac">
+                ${room.ac ? "ON" : "OFF"}
+              </button>
+            </div>
+
+            <div class="ac-temp-box">
+              <span class="ac-temp-label">AC Setpoint</span>
+              <div class="temp-controls">
+                <button type="button" class="temp-btn" data-action="temp-down" aria-label="Decrease temperature">−</button>
+                <span class="temp-val">${room.temp} °C</span>
+                <button type="button" class="temp-btn" data-action="temp-up" aria-label="Increase temperature">+</button>
+              </div>
+            </div>
+            ${room.ac && room.temp < 24 ? `<div class="tip">Below 24 °C — raising to 24 °C trims excess AC load.</div>` : ""}
+          </section>
+        `
+        )
+        .join("");
+    }
+
+    document.getElementById("zonesGrid").addEventListener("click", (e) => {
+      const btn = e.target.closest("button[data-action]");
+      if (!btn) return;
+      const card = e.target.closest(".zone-card");
+      const room = state.find((r) => r.id === card.dataset.id);
+      if (!room) return;
+
+      const action = btn.dataset.action;
+      if (action === "lights") room.lights = !room.lights;
+      if (action === "fans") room.fans = !room.fans;
+      if (action === "ac") room.ac = !room.ac;
+      if (action === "temp-down") room.temp = Math.max(18, room.temp - 1);
+      if (action === "temp-up") room.temp = Math.min(28, room.temp + 1);
+      render();
+    });
+
+    document.getElementById("floorFilter").addEventListener("change", render);
+
+    document.getElementById("logoutBtn").addEventListener("click", () => {
+      sessionStorage.removeItem("ecoguard_role");
+      window.location.href = "index.html";
+    });
+
+    render();
+  </script>
+</body>
+</html>
