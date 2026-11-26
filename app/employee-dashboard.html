@@ -56,25 +56,26 @@
       gap: 12px;
     }
 
+    /* Plant + Smart Socket Animation matching login page */
     .eco-scene {
-      width: 112px;
-      height: 56px;
+      width: 118px;
+      height: 62px;
       flex-shrink: 0;
       display: block;
     }
 
     .plant-stem {
-      transform-origin: 34px 44px;
+      transform-origin: 35px 46px;
       animation: gentleSway 3.6s ease-in-out infinite;
     }
 
     .leaf-left {
-      transform-origin: 34px 29px;
+      transform-origin: 35px 30px;
       animation: leafBreathe 3.2s ease-in-out infinite;
     }
 
     .leaf-right {
-      transform-origin: 34px 24px;
+      transform-origin: 35px 24px;
       animation: leafBreathe 3.2s ease-in-out 0.6s infinite;
     }
 
@@ -335,28 +336,28 @@
 <body>
   <header class="topbar">
     <div class="brand">
-      <svg class="eco-scene" viewBox="0 0 124 62" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+      <svg class="eco-scene" viewBox="0 0 124 66" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
         <!-- Smart Wall Socket (Right Side) -->
-        <rect x="76" y="10" width="32" height="36" rx="5.5" fill="#0d291d" stroke="#4d8b6f" stroke-width="1.7"/>
-        <circle cx="92" cy="20.5" r="2" fill="#fbbf24"/>
-        <circle cx="85.5" cy="30.5" r="2" fill="#a7f3d0"/>
-        <circle cx="98.5" cy="30.5" r="2" fill="#a7f3d0"/>
-        <circle class="socket-led" cx="92" cy="39.5" r="1.9" fill="#22c55e"/>
+        <rect x="76" y="12" width="32" height="36" rx="5.5" fill="#0d291d" stroke="#4d8b6f" stroke-width="1.7"/>
+        <circle cx="92" cy="22.5" r="2" fill="#fbbf24"/>
+        <circle cx="85.5" cy="32.5" r="2" fill="#a7f3d0"/>
+        <circle cx="98.5" cy="32.5" r="2" fill="#a7f3d0"/>
+        <circle class="socket-led" cx="92" cy="41.5" r="1.9" fill="#22c55e"/>
 
         <!-- Connecting Eco-Cord from Socket to Planter Pot -->
-        <path d="M76 31 C64 31, 64 45, 47 45" stroke="#4d8b6f" stroke-width="2.2" stroke-linecap="round"/>
-        <path class="energy-pulse" d="M76 31 C64 31, 64 45, 47 45" stroke="#fbbf24" stroke-width="2.2" stroke-linecap="round"/>
+        <path d="M76 32.5 C64 32.5, 64 47.5, 48 47.5" stroke="#4d8b6f" stroke-width="2.2" stroke-linecap="round"/>
+        <path class="energy-pulse" d="M76 32.5 C64 32.5, 64 47.5, 48 47.5" stroke="#fbbf24" stroke-width="2.2" stroke-linecap="round"/>
 
         <!-- Planter Pot (Left Side) -->
-        <path d="M21 39.5 H47 L43.5 54.5 C43.1 55.9 41.9 56.8 40.5 56.8 H27.5 C26.1 56.8 24.9 55.9 24.5 54.5 L21 39.5 Z" fill="#d97706"/>
-        <rect x="19" y="36.8" width="30" height="4.2" rx="2" fill="#fbbf24"/>
+        <path d="M22 41.5 H48 L44.5 56.5 C44.1 57.9 42.9 58.8 41.5 58.8 H28.5 C27.1 58.8 25.9 57.9 25.5 56.5 L22 41.5 Z" fill="#d97706"/>
+        <rect x="20" y="38.8" width="30" height="4.2" rx="2" fill="#fbbf24"/>
 
         <!-- Growing Plant Sprout -->
         <g class="plant-stem">
-          <path d="M34 36.8 C34 27.5, 34 20.5, 34 12.5" stroke="#6ee7b7" stroke-width="2.2" stroke-linecap="round"/>
-          <path class="leaf-left" d="M34 27.5 C24 27.5, 18.5 20.2, 20.3 13.8 C26.8 13.8, 33.1 19.3, 34 27.5 Z" fill="#34d399"/>
-          <path class="leaf-right" d="M34 22 C44 22, 49.5 14.7, 47.7 8.3 C41.2 8.3, 34.9 13.8, 34 22 Z" fill="#a7f3d0"/>
-          <circle cx="34" cy="9.8" r="2.2" fill="#fbbf24"/>
+          <path d="M35 38.8 C35 29.5, 35 22.5, 35 14.5" stroke="#6ee7b7" stroke-width="2.2" stroke-linecap="round"/>
+          <path class="leaf-left" d="M35 29.5 C25 29.5, 19.5 22.2, 21.3 15.8 C27.8 15.8, 34.1 21.3, 35 29.5 Z" fill="#34d399"/>
+          <path class="leaf-right" d="M35 24 C45 24, 50.5 16.7, 48.7 10.3 C42.2 10.3, 35.9 15.8, 35 24 Z" fill="#a7f3d0"/>
+          <circle cx="35" cy="11.8" r="2.2" fill="#fbbf24"/>
         </g>
       </svg>
       <div>
@@ -374,7 +375,7 @@
     <div class="toolbar">
       <div>
         <h1>Room Comfort &amp; Lighting</h1>
-        <p>Toggle Light 1–3, Fan 1–3, and AC power or adjust temperature setpoints (recommended AC: 24 °C).</p>
+        <p>Toggle Light 1–3, Fan 1–3, and AC units or adjust temperature setpoints (recommended AC: 24 °C).</p>
       </div>
       <select id="floorFilter" aria-label="Filter by floor">
         <option value="ALL">All Floors</option>
