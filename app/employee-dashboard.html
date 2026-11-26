@@ -41,7 +41,7 @@
     .topbar {
       background: var(--forest);
       color: #F6F4EE;
-      padding: 14px 20px;
+      padding: 12px 20px;
       display: flex;
       flex-wrap: wrap;
       align-items: center;
@@ -54,6 +54,63 @@
       display: flex;
       align-items: center;
       gap: 12px;
+    }
+
+    .eco-scene {
+      width: 112px;
+      height: 56px;
+      flex-shrink: 0;
+      display: block;
+    }
+
+    .plant-stem {
+      transform-origin: 34px 44px;
+      animation: gentleSway 3.6s ease-in-out infinite;
+    }
+
+    .leaf-left {
+      transform-origin: 34px 29px;
+      animation: leafBreathe 3.2s ease-in-out infinite;
+    }
+
+    .leaf-right {
+      transform-origin: 34px 24px;
+      animation: leafBreathe 3.2s ease-in-out 0.6s infinite;
+    }
+
+    .energy-pulse {
+      stroke-dasharray: 8 36;
+      animation: flowCurrent 2.2s linear infinite;
+    }
+
+    .socket-led {
+      animation: ledBlink 2.2s ease-in-out infinite;
+    }
+
+    @keyframes gentleSway {
+      0%, 100% { transform: rotate(-2.5deg); }
+      50% { transform: rotate(2.5deg); }
+    }
+
+    @keyframes leafBreathe {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
+    }
+
+    @keyframes flowCurrent {
+      from { stroke-dashoffset: 44; }
+      to { stroke-dashoffset: 0; }
+    }
+
+    @keyframes ledBlink {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.35; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .plant-stem, .leaf-left, .leaf-right, .energy-pulse, .socket-led {
+        animation: none;
+      }
     }
 
     .brand-name {
@@ -103,7 +160,7 @@
     }
 
     .container {
-      max-width: 920px;
+      max-width: 1040px;
       margin: 24px auto 0;
       padding: 0 16px;
     }
@@ -142,7 +199,7 @@
 
     .grid {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      grid-template-columns: repeat(auto-fit, minmax(290px, 1fr));
       gap: 16px;
     }
 
@@ -158,7 +215,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 14px;
+      margin-bottom: 12px;
       padding-bottom: 10px;
       border-bottom: 1px solid var(--line);
     }
@@ -176,11 +233,21 @@
       color: var(--muted);
     }
 
+    .group-heading {
+      margin: 12px 0 4px;
+      font-family: "JetBrains Mono", monospace;
+      font-size: 10.5px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      color: var(--muted);
+    }
+
     .device-row {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 10px 0;
+      padding: 8px 0;
       border-bottom: 1px dashed rgba(15, 42, 32, 0.12);
     }
 
@@ -189,13 +256,13 @@
     }
 
     .device-label {
-      font-size: 14.5px;
+      font-size: 14px;
       font-weight: 500;
     }
 
     .switch-btn {
-      min-width: 66px;
-      padding: 6px 12px;
+      min-width: 62px;
+      padding: 5px 11px;
       border-radius: 8px;
       border: 1px solid var(--line);
       font-family: "JetBrains Mono", monospace;
@@ -216,7 +283,7 @@
     }
 
     .ac-temp-box {
-      margin-top: 10px;
+      margin-top: 8px;
       padding: 10px 12px;
       border-radius: 9px;
       background: var(--bg);
@@ -268,6 +335,30 @@
 <body>
   <header class="topbar">
     <div class="brand">
+      <svg class="eco-scene" viewBox="0 0 124 62" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <!-- Smart Wall Socket (Right Side) -->
+        <rect x="76" y="10" width="32" height="36" rx="5.5" fill="#0d291d" stroke="#4d8b6f" stroke-width="1.7"/>
+        <circle cx="92" cy="20.5" r="2" fill="#fbbf24"/>
+        <circle cx="85.5" cy="30.5" r="2" fill="#a7f3d0"/>
+        <circle cx="98.5" cy="30.5" r="2" fill="#a7f3d0"/>
+        <circle class="socket-led" cx="92" cy="39.5" r="1.9" fill="#22c55e"/>
+
+        <!-- Connecting Eco-Cord from Socket to Planter Pot -->
+        <path d="M76 31 C64 31, 64 45, 47 45" stroke="#4d8b6f" stroke-width="2.2" stroke-linecap="round"/>
+        <path class="energy-pulse" d="M76 31 C64 31, 64 45, 47 45" stroke="#fbbf24" stroke-width="2.2" stroke-linecap="round"/>
+
+        <!-- Planter Pot (Left Side) -->
+        <path d="M21 39.5 H47 L43.5 54.5 C43.1 55.9 41.9 56.8 40.5 56.8 H27.5 C26.1 56.8 24.9 55.9 24.5 54.5 L21 39.5 Z" fill="#d97706"/>
+        <rect x="19" y="36.8" width="30" height="4.2" rx="2" fill="#fbbf24"/>
+
+        <!-- Growing Plant Sprout -->
+        <g class="plant-stem">
+          <path d="M34 36.8 C34 27.5, 34 20.5, 34 12.5" stroke="#6ee7b7" stroke-width="2.2" stroke-linecap="round"/>
+          <path class="leaf-left" d="M34 27.5 C24 27.5, 18.5 20.2, 20.3 13.8 C26.8 13.8, 33.1 19.3, 34 27.5 Z" fill="#34d399"/>
+          <path class="leaf-right" d="M34 22 C44 22, 49.5 14.7, 47.7 8.3 C41.2 8.3, 34.9 13.8, 34 22 Z" fill="#a7f3d0"/>
+          <circle cx="34" cy="9.8" r="2.2" fill="#fbbf24"/>
+        </g>
+      </svg>
       <div>
         <div class="brand-name">ECOGUARD</div>
         <div class="brand-sub">POWER · WATER · WALLS · EMPLOYEE CONSOLE</div>
@@ -283,7 +374,7 @@
     <div class="toolbar">
       <div>
         <h1>Room Comfort &amp; Lighting</h1>
-        <p>Switch lights, fans, and AC units or adjust room setpoints (recommended AC: 24 °C).</p>
+        <p>Toggle Light 1–3, Fan 1–3, and AC power or adjust temperature setpoints (recommended AC: 24 °C).</p>
       </div>
       <select id="floorFilter" aria-label="Filter by floor">
         <option value="ALL">All Floors</option>
@@ -304,11 +395,34 @@
       role === "admin" ? "Admin Preview · Employee View" : "Employee · Lights, Fans & AC";
 
     const state = [
-      { id: "r1", floor: "F0", code: "F0 · RM-101", name: "Lecture Hall A", lights: true, fans: true, ac: true, temp: 24 },
-      { id: "r2", floor: "F0", code: "F0 · RM-102", name: "Faculty Lounge", lights: true, fans: false, ac: true, temp: 22 },
-      { id: "r3", floor: "F1", code: "F1 · RM-201", name: "Seminar Room 1", lights: false, fans: true, ac: false, temp: 24 },
-      { id: "r4", floor: "F1", code: "F1 · LAB-204", name: "Computing Lab", lights: true, fans: true, ac: true, temp: 23 }
+      {
+        id: "r1", floor: "F0", code: "F0 · RM-101", name: "Lecture Hall A",
+        lights: [true, true, false], fans: [true, true, false], ac: true, temp: 24
+      },
+      {
+        id: "r2", floor: "F0", code: "F0 · RM-102", name: "Faculty Lounge",
+        lights: [true, false, false], fans: [false, false, false], ac: true, temp: 22
+      },
+      {
+        id: "r3", floor: "F1", code: "F1 · RM-201", name: "Seminar Room 1",
+        lights: [false, false, false], fans: [true, false, false], ac: false, temp: 24
+      },
+      {
+        id: "r4", floor: "F1", code: "F1 · LAB-204", name: "Computing Lab",
+        lights: [true, true, true], fans: [true, true, true], ac: true, temp: 23
+      }
     ];
+
+    function renderSwitchRow(label, isOn, action, indexAttr = "") {
+      return `
+        <div class="device-row">
+          <span class="device-label">${label}</span>
+          <button type="button" class="switch-btn ${isOn ? "on" : "off"}" data-action="${action}" ${indexAttr}>
+            ${isOn ? "ON" : "OFF"}
+          </button>
+        </div>
+      `;
+    }
 
     function render() {
       const selectedFloor = document.getElementById("floorFilter").value;
@@ -324,29 +438,17 @@
               <span class="zone-code">${room.code}</span>
             </div>
 
-            <div class="device-row">
-              <span class="device-label">Lights</span>
-              <button type="button" class="switch-btn ${room.lights ? "on" : "off"}" data-action="lights">
-                ${room.lights ? "ON" : "OFF"}
-              </button>
-            </div>
+            <div class="group-heading">Lights</div>
+            ${room.lights.map((isOn, idx) => renderSwitchRow(`Light ${idx + 1}`, isOn, "light", `data-index="${idx}"`)).join("")}
 
-            <div class="device-row">
-              <span class="device-label">Fans</span>
-              <button type="button" class="switch-btn ${room.fans ? "on" : "off"}" data-action="fans">
-                ${room.fans ? "ON" : "OFF"}
-              </button>
-            </div>
+            <div class="group-heading">Fans</div>
+            ${room.fans.map((isOn, idx) => renderSwitchRow(`Fan ${idx + 1}`, isOn, "fan", `data-index="${idx}"`)).join("")}
 
-            <div class="device-row">
-              <span class="device-label">Air Conditioner</span>
-              <button type="button" class="switch-btn ${room.ac ? "on" : "off"}" data-action="ac">
-                ${room.ac ? "ON" : "OFF"}
-              </button>
-            </div>
+            <div class="group-heading">AC &amp; Temperature Control</div>
+            ${renderSwitchRow("Air Conditioner", room.ac, "ac")}
 
             <div class="ac-temp-box">
-              <span class="ac-temp-label">AC Setpoint</span>
+              <span class="ac-temp-label">Temp (${room.ac ? "Active" : "Standby"})</span>
               <div class="temp-controls">
                 <button type="button" class="temp-btn" data-action="temp-down" aria-label="Decrease temperature">−</button>
                 <span class="temp-val">${room.temp} °C</span>
@@ -368,11 +470,19 @@
       if (!room) return;
 
       const action = btn.dataset.action;
-      if (action === "lights") room.lights = !room.lights;
-      if (action === "fans") room.fans = !room.fans;
+      const idx = Number(btn.dataset.index);
+
+      if (action === "light") room.lights[idx] = !room.lights[idx];
+      if (action === "fan") room.fans[idx] = !room.fans[idx];
       if (action === "ac") room.ac = !room.ac;
-      if (action === "temp-down") room.temp = Math.max(18, room.temp - 1);
-      if (action === "temp-up") room.temp = Math.min(28, room.temp + 1);
+      if (action === "temp-down") {
+        room.ac = true;
+        room.temp = Math.max(18, room.temp - 1);
+      }
+      if (action === "temp-up") {
+        room.ac = true;
+        room.temp = Math.min(28, room.temp + 1);
+      }
       render();
     });
 
